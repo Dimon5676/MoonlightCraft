@@ -7,6 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import ru.Dimon5676.moonlightcraft.Main;
@@ -37,6 +39,21 @@ public class HorseManager implements Listener {
     public void onDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Horse)) return;
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Main.getPlugin(Main.class).horses.add(new BrownHorse(event.getPlayer()));
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        BrownHorse horse = getHorseByOwnerName(event.getPlayer().getDisplayName());
+        for (int i = 0; i < Main.getPlugin(Main.class).horses.size(); i++) {
+            if (Main.getPlugin(Main.class).horses.get(i).owner.getDisplayName().equalsIgnoreCase(event.getPlayer().getDisplayName())) {
+                Main.getPlugin(Main.class).horses.remove(i);
+            }
+        }
     }
 
     public BrownHorse getHorseByOwnerName(String name) {

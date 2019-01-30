@@ -14,6 +14,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         getLogger().info("Plugin loaded successful!");
         getServer().getPluginManager().registerEvents(new HorseManager(), this);
         getCommand("testhorse").setExecutor(new CommandManager());
@@ -28,4 +29,6 @@ public class Main extends JavaPlugin {
     public void onDisable() {
         getLogger().info("Plugin disabled");
     }
+
+
 }

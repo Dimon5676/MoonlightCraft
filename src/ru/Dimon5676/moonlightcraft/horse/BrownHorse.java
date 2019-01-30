@@ -8,17 +8,17 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class BrownHorse {
-    int maxSpeed = 10;
-    int currentSpeed = 1;
-    int maxJump = 10;
-    double currentJump = 0.6;
-    Horse.Color color = Horse.Color.BROWN;
-    Horse horse;
-    Player owner;
+    private double maxSpeed = 10;
+    private double currentSpeed = 1;
+    private double maxJump = 10;
+    private double currentJump = 0.6;
+    private Horse.Color color = Horse.Color.BROWN;
+    private Horse horse;
+    protected Player owner;
 
     protected boolean isSpawned = false;
 
-    int xp = 0;
+    private int xp = 0;
 
     public BrownHorse(Player owner) {
         this.owner = owner;
