@@ -1,3 +1,10 @@
-main: ru.Dimon5676.moonlightcraft.Main
 name: MoonlightCraft
+main: ru.Dimon5676.moonlightcraft.Main
 version: '1.0'
+commands:
+  testhorse:
+    usage: /testhourse
+    description: Даёт тестовое седло
+  buyhorse:
+    usage: /buyhorse
+    description: Купить лошадь
