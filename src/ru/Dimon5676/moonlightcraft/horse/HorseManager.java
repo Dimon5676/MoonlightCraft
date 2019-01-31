@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import ru.Dimon5676.moonlightcraft.Main;
@@ -26,7 +25,8 @@ public class HorseManager implements Listener {
         event.setCancelled(true);
 
         if (meta.getDisplayName().equalsIgnoreCase(ChatColor.GREEN + "brown horse")) {
-            BrownHorse horse = getHorseByOwnerName(player.getDisplayName());
+            HorseMoonlight horse = getHorseByOwnerName(player.getDisplayName());
+            if (horse == null) return;
             if (horse.isSpawned) {
                 horse.hide();
             } else {
@@ -43,27 +43,28 @@ public class HorseManager implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        Main.getPlugin(Main.class).horses.add(new BrownHorse(event.getPlayer()));
+        if (isHorseInListByOwnerName(event.getPlayer().getDisplayName())) return;
+        Main.getPlugin(Main.class).horses.add(new HorseMoonlight(event.getPlayer()));
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
-        BrownHorse horse = getHorseByOwnerName(event.getPlayer().getDisplayName());
-        for (int i = 0; i < Main.getPlugin(Main.class).horses.size(); i++) {
-            if (Main.getPlugin(Main.class).horses.get(i).owner.getDisplayName().equalsIgnoreCase(event.getPlayer().getDisplayName())) {
-                Main.getPlugin(Main.class).horses.remove(i);
-            }
-        }
-    }
-
-    public BrownHorse getHorseByOwnerName(String name) {
-        BrownHorse result = null;
-        for (BrownHorse horse : Main.getPlugin(Main.class).horses) {
+    public HorseMoonlight getHorseByOwnerName(String name) {
+        HorseMoonlight result = null;
+        for (HorseMoonlight horse : Main.getPlugin(Main.class).horses) {
             if (horse.owner.getDisplayName().equalsIgnoreCase(name)) {
                 result = horse;
             }
         }
         return result;
+    }
+
+    public boolean isHorseInListByOwnerName(String name) {
+        HorseMoonlight horse = null;
+        horse = getHorseByOwnerName(name);
+        if (horse != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
