@@ -7,7 +7,6 @@ import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,13 +22,21 @@ public class HorseMoonlight implements ConfigurationSerializable {
 
     protected boolean isSpawned = false;
 
+    public HorseMoonlight() {
+
+    }
+
+    public HorseMoonlight(Player owner) {
+        this.owner = owner;
+    }
+
     public HorseMoonlight(Map<String, Object> map) {
-        this.horse = (Horse) map.get("Horse");
+        //this.horse = (Horse) map.get("Horse");
         this.maxSpeed = Double.valueOf((String) map.get("maxSpeed"));
         this.currentSpeed = Double.valueOf((String) map.get("currentSpeed"));
         this.maxJump = Double.valueOf((String) map.get("maxJump"));
         this.currentJump = Double.valueOf((String) map.get("currentJump"));
-        this.color = (Horse.Color) map.get("Color");
+        //this.color = (Horse.Color) map.get("Color");
         this.xp = (int) map.get("xp");
         this.owner = (Player) map.get("owner");
         this.isSpawned = (boolean) map.get("isSpawned");
@@ -79,16 +86,13 @@ public class HorseMoonlight implements ConfigurationSerializable {
         this.owner = owner;
     }
 
-    public HorseMoonlight(Player owner) {
-        this.owner = owner;
-    }
-
     protected void spawn() {
         if (isSpawned) return;
         horse = owner.getWorld().spawn(owner.getLocation(), Horse.class);
         horse.setJumpStrength(currentJump);
         horse.setCustomNameVisible(true);
         horse.setStyle(Horse.Style.NONE);
+        horse.setColor(color);
 
         Inventory horseInv = horse.getInventory();
         horseInv.addItem(new ItemStack(Material.SADDLE));
@@ -108,12 +112,12 @@ public class HorseMoonlight implements ConfigurationSerializable {
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("Horse", horse);
+        //map.put("Horse", horse);
         map.put("maxSpeed", String.valueOf(maxSpeed));
         map.put("currentSpeed", String.valueOf(currentSpeed));
         map.put("maxJump", String.valueOf(maxJump));
         map.put("currentJump", String.valueOf(currentJump));
-        map.put("Color", color);
+        //map.put("Color", color);
         map.put("xp", xp);
         map.put("owner", owner);
         map.put("isSpawned", isSpawned);

@@ -43,6 +43,7 @@ public class HorseManager implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        Main.getPlugin(Main.class).getLogger().info("Player joined");
         if (isHorseInListByOwnerName(event.getPlayer().getDisplayName())) return;
         Main.getPlugin(Main.class).horses.add(new HorseMoonlight(event.getPlayer()));
     }
@@ -58,7 +59,7 @@ public class HorseManager implements Listener {
     }
 
     public boolean isHorseInListByOwnerName(String name) {
-        HorseMoonlight horse = null;
+        HorseMoonlight horse;
         horse = getHorseByOwnerName(name);
         if (horse != null) {
             return true;
