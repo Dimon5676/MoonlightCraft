@@ -29,7 +29,7 @@ public class CommandManager implements CommandExecutor {
         Inventory plInv = player.getInventory();
 
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.GOLD + "Brown Horse");
+        lore.add(ChatColor.GOLD + "LVL: 1");
 
         switch (command.getName()) {
             case "testhorse":
