@@ -13,6 +13,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import ru.Dimon5676.moonlightcraft.ItemCreator;
+import ru.Dimon5676.moonlightcraft.horse.Saddle;
+import ru.Dimon5676.moonlightcraft.horse.SaddleCreator;
 
 import java.util.ArrayList;
 
@@ -28,19 +30,26 @@ public class CommandManager implements CommandExecutor {
         Player player = ((Player) commandSender).getPlayer();
         Inventory plInv = player.getInventory();
 
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.GOLD + "LVL: 1");
-
         switch (command.getName()) {
             case "testhorse":
-                plInv.addItem(ItemCreator.create(Material.SADDLE, 1, ChatColor.GREEN + "Brown Horse", lore));
-                return true;
+                if (strings.length > 1 || strings.length < 1) return false;
+                if (strings[0].equalsIgnoreCase("brown")) {
+                    plInv.addItem(SaddleCreator.create(ChatColor.GREEN + "Brown horse", 1, 1, 1, 0, false));
+                    return true;
+                } else if (strings[0].equalsIgnoreCase("black")) {
+                    plInv.addItem(SaddleCreator.create(ChatColor.GREEN + "Black horse", 1, 1, 1, 0, false));
+                    return true;
+                } else if (strings[0].equalsIgnoreCase("white")) {
+                    plInv.addItem(new Saddle(ChatColor.GREEN + "White horse", 1, 1, 1, 10, false));
+                    return true;
+                }
+                break;
             case "buyhorse":
                 ItemStack price = new ItemStack(Material.EMERALD_BLOCK);
                 price.setAmount(64);
                 if (plInv.contains(price)) {
                     plInv.remove(price);
-                    plInv.addItem(ItemCreator.create(Material.SADDLE, 1, ChatColor.GREEN + "Brown Horse", lore));
+                    plInv.addItem(SaddleCreator.create(ChatColor.GREEN + "Brown horse", 1, 1, 1, 0, false));
                     Firework fw = player.getWorld().spawn(player.getLocation(), Firework.class);
                     FireworkMeta fwMeta = fw.getFireworkMeta();
                     fwMeta.addEffect(FireworkEffect.builder().withFade(Color.RED).with(FireworkEffect.Type.BALL_LARGE).withColor(Color.RED, Color.BLUE, Color.AQUA).build());

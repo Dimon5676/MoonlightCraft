@@ -3,7 +3,7 @@ main: ru.Dimon5676.moonlightcraft.Main
 version: '1.0'
 commands:
   testhorse:
-    usage: /testhourse
+    usage: /testhourse <color>
     description: Даёт тестовое седло
   buyhorse:
     usage: /buyhorse
